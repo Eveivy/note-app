@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "font main";
+  src: url("./assets/fonts/PlusJakartaSans-Medium.ttf");
+  font-weight: bold;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue";
+  src: url("./assets/fonts/PPNeueMachina-InktrapUltrabold.otf");
+  font-weight: bold;
+  font-display: swap;
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "font main";
+  font-weight: 800;
+}
+body {
+  background: #363054;
+  background: -webkit-linear-gradient(to right, #4f4969, #363054);
+  background: linear-gradient(to right, #4f4969, #363054);
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  padding: 100px;
+  /* hsl(191deg 91% 69%) */
+}
+.font-main{
+  font-family: 'Neue';
+}
+.notes-container {
+  height: 100%;
+  width: 750px;
+  background-color: #261f47;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;  */
+  /* margin-top: 80px; */
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+.search-input-div{
+  padding: 8px 25px;
+  border-radius: 20px;
+  width: 45%;
+  background-color: #514983;
+}
+input, textarea{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  /* color: white; */
+}
+.note-title:hover{
+  color: burlywood !important;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+@media only screen and (max-width: 768px) {
+  body{
+    padding: 0;
+  }
+  .notes-container{
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .search-input-div{
+    width: 100%;
+  }
+}
+
