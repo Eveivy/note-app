@@ -32,8 +32,8 @@ export default function NoteModal({ show, handleClose, onSubmit, ...otherProps }
     const[noteT, setNoteT] = useState(otherProps.vals.title)
 
     // console.log(otherProps.vals)
-    console.log(editForm)
-    console.log(noteT)
+    // console.log(editForm)
+    // console.log(noteT)
     return (
         <>
             <Modal show={show} onHide={handleClose}> 

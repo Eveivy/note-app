@@ -30,44 +30,45 @@ function App() {
     })
   }
 
-  const [id, setId] = useState('')
-  const [noteVals, setNoteVals] = useState({})
-   
+  const [id, setId] = useState('');
+  const [noteVals, setNoteVals] = useState({});
+
   useEffect(() => {
     window.localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
 
 
-  const handleDelete = (e, k) => {
-    setNotes((current) =>
-      current.filter((note) => note.id !== k)
-    );
-  }
-
   const handleClick = (ev, key) => {
-    setShow(true)
-     setId(ev.target.id)
-    const found = notes.find(el => { 
-      return el.id === key
-    });
-    setNoteVals(found)
+    console.log(ev.target)
+    if (ev.target.id === "delete") {
+      setNotes((current) =>
+        current.filter((note) => note.id !== key)
+      );
+    } else {
+      setShow(true)
+      // setId(ev.target.id)
+      const found = notes.find(el => {
+        return el.id === key
+      });
+      console.log(found)
+    }
+    // setNoteVals(found)
   };
 
   const noteGrids = notes.map((note, idx) => {
     const bgs = ['#2230c5', '#8a2584', '#14857c', '#d1b910', '#962374', '#b51f5d', '#6529a2', '#322eb9', '#26da0e', '#123569']
     const selectedVariant = bgs[idx % bgs.length];
     return (
-      <Col xl={6} key={note.id}>
+      <Col xl={6} key={note.id} onClick={event => handleClick(event, note.id)}>
         <div className="rounded-3" style={{
           backgroundColor: selectedVariant,
           cursor: 'pointer',
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
         }}>
           <div className="d-flex justify-content-between">
-            <p id='noteTitle' className='pb-5 p-3 font-main text-white note-title' onClick={event => handleClick(event, note.id)}>{note.title || 'Untitled'}</p>
+            <p id={note.id} className='pb-5 p-3 font-main text-white note-title'>{note.title || 'Untitled'}</p>
 
-            <span id='delete' onClick={e => handleDelete(e, note.id)} 
-              className='p-3' style={{ cursor: 'pointer' }}><box-icon name='trash-alt' color="red" size="1.5rem"></box-icon></span>
+            <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' name='trash-alt' color="red" size="1.5rem"></box-icon></span>
 
           </div>
           <p className='text-muted p-3 text-end' style={{ fontSize: '12px' }}>{note.dateTime}</p>
