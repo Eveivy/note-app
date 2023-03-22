@@ -6,16 +6,22 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import NoteModal from './Components/NoteModal';
+import ConfirmDeleteModal from './Components/ConfirmDeleteModal';
 import 'boxicons'
 import { Modal } from 'bootstrap';
 
 function App() {
   const [show, setShow] = useState(false);
+  const [showDelModal, setShowDelModal] = useState(false);
+
   const [notes, setNotes] = useState(localStorage.getItem('notes') == null ? [] : JSON.parse(localStorage.getItem('notes')));
   const today = new Date();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const toggleClose = () => setShowDelModal(false);
+  const toggleShow = () => setShowDelModal(true);
 
   const date = `${today.getFullYear()}-${(today.getMonth() + 1)}-${today.getDate()}`;
   const time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -32,21 +38,28 @@ function App() {
 
   const [id, setId] = useState('');
   const [noteVals, setNoteVals] = useState({});
+  const [elementKey, setElementKey] = useState(null)
 
   useEffect(() => {
     window.localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
 
+  const handleDelete = (ev, key) => {
+    setNotes((current) =>
+      current.filter((note) => note.id !== key)
+    );
+    setShowDelModal(false)
+  }
 
   const handleClick = (ev, key) => {
     console.log(ev.target)
     if (ev.target.id === "delete") {
-      setNotes((current) =>
-        current.filter((note) => note.id !== key)
-      );
+      setElementKey(key)
+      setShowDelModal(true)
     } else {
       setShow(true)
-      // setId(ev.target.id)
+      setId(ev.target.id)
+      
       const found = notes.find(el => {
         return el.id === key
       });
@@ -68,7 +81,7 @@ function App() {
           <div className="d-flex justify-content-between">
             <p id={note.id} className='pb-5 p-3 font-main text-white note-title'>{note.title || 'Untitled'}</p>
 
-            <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' name='trash-alt' color="red" size="1.5rem"></box-icon></span>
+            <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='trash-alt' color="red" size="1.5rem"></box-icon></span>
 
           </div>
           <p className='text-muted p-3 text-end' style={{ fontSize: '12px' }}>{note.dateTime}</p>
@@ -80,12 +93,21 @@ function App() {
   return (
     <div className="App">
       <NoteModal id={id} vals={noteVals} show={show} handleClose={handleClose} today={today} onSubmit={onSubmit} />
+      <ConfirmDeleteModal showModal={showDelModal} handleClose={toggleClose} handleDelete={handleDelete} elKey={elementKey} />
       <Container className='notes-container p-xl-5'>
         {notes.length > 0 &&
-          <div className='d-flex align-items-center search-input-div'>
-            <box-icon color="white" size="20px" name='search-alt-2'></box-icon>
-            <Form as='input' className="text-white" name='search' id='search' placeholder='Search note' />
-          </div>}
+          <div className='d-flex align-items-center justify-content-between'>
+            <div className='d-flex align-items-center search-input-div'>
+              <box-icon color="white" size="20px" name='search-alt-2'></box-icon>
+              <Form as='input' className="text-white" name='search' id='search' placeholder='Search note' />
+            </div>
+            <div className="d-flex align-items-center justify-content-center">
+              <span id='addNoteIcon' title='add new note' onClick={handleShow} className='d-flex align-items-center rounded-3' style={{ backgroundColor: "red", cursor: 'pointer' }}>
+                <box-icon size="2.5rem" color="white" name='plus' ></box-icon>
+              </span>
+            </div>
+          </div>
+        }
         <Row className='mt-3 g-5'>
           {
             notes.length === 0 ? <Col xl={12} className="d-flex align-items-center justify-content-center ">
@@ -95,16 +117,7 @@ function App() {
               </div>
             </Col> : noteGrids
           }
-          {
-            notes.length > 0 &&
-            <Col xl={6} className="d-none d-xl-flex align-items-end justify-content-center ">
-              <div className="d-flex align-items-center justify-content-center pb-5">
-                <span id='addNoteIcon' onClick={handleShow} className='d-flex align-items-center rounded-3' style={{ backgroundColor: "red", cursor: 'pointer' }}>
-                  <box-icon size="2.5rem" color="white" name='plus' ></box-icon>
-                </span>
-              </div>
-            </Col>
-          }
+
         </Row>
       </Container>
     </div>
