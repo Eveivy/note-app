@@ -7,12 +7,14 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import NoteModal from './Components/NoteModal';
 import ConfirmDeleteModal from './Components/ConfirmDeleteModal';
+import EditNoteModal from './Components/EditNoteModal';
 import 'boxicons'
 import { Modal } from 'bootstrap';
 
 function App() {
   const [show, setShow] = useState(false);
   const [showDelModal, setShowDelModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const [notes, setNotes] = useState(localStorage.getItem('notes') == null ? [] : JSON.parse(localStorage.getItem('notes')));
   const today = new Date();
@@ -20,8 +22,10 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const toggleClose = () => setShowDelModal(false);
-  const toggleShow = () => setShowDelModal(true);
+  const toggleClose = () => setShowDelModal(false); 
+
+  const handleEditShow = () => setShowEditModal(true);
+  const handleEditClose = () => setShowEditModal(false);
 
   const date = `${today.getFullYear()}-${(today.getMonth() + 1)}-${today.getDate()}`;
   const time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -35,8 +39,7 @@ function App() {
       return [...prevNotes, values]
     })
   }
-
-  const [id, setId] = useState('');
+ 
   const [noteVals, setNoteVals] = useState({});
   const [elementKey, setElementKey] = useState(null)
 
@@ -52,19 +55,21 @@ function App() {
     setShowDelModal(false)
   }
 
-  const handleClick = (ev, key) => {
-    console.log(ev.target)
+  const handleClick = (ev, key) => { 
     if (ev.target.id === "delete") {
-      setElementKey(key)
-      setShowDelModal(true)
+
+      setElementKey(key);
+
+      setShowDelModal(true);
+
     } else {
-      setShow(true)
-      setId(key)
+
+      setShowEditModal(true); 
 
       const found = notes.find(el => {
         return el.id === key
-      });
-      // console.log(key)
+      }); 
+
       setNoteVals(found)
     }
   };
@@ -93,8 +98,9 @@ function App() {
 
   return (
     <div className="App">
-      <NoteModal id={id} vals={noteVals} show={show} handleClose={handleClose} today={today} onSubmit={onSubmit} />
+      <NoteModal show={show} handleClose={handleClose} today={today} onSubmit={onSubmit} />
       <ConfirmDeleteModal showModal={showDelModal} handleClose={toggleClose} handleDelete={handleDelete} elKey={elementKey} />
+      <EditNoteModal vals={noteVals} today={today} showEditModal={showEditModal} closeEditModal={handleEditClose} />
       <Container className='notes-container p-xl-5'>
         {notes.length > 0 &&
           <div className='d-flex align-items-center justify-content-between'>
