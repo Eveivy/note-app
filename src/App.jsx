@@ -40,6 +40,7 @@ function App() {
   const [noteVals, setNoteVals] = useState({});
   const [elementKey, setElementKey] = useState(null)
 
+
   useEffect(() => {
     window.localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
@@ -58,28 +59,28 @@ function App() {
       setShowDelModal(true)
     } else {
       setShow(true)
-      setId(ev.target.id)
-      
+      setId(key)
+
       const found = notes.find(el => {
         return el.id === key
       });
-      console.log(found)
+      // console.log(key)
+      setNoteVals(found)
     }
-    // setNoteVals(found)
   };
 
   const noteGrids = notes.map((note, idx) => {
     const bgs = ['#2230c5', '#8a2584', '#14857c', '#d1b910', '#962374', '#b51f5d', '#6529a2', '#322eb9', '#26da0e', '#123569']
     const selectedVariant = bgs[idx % bgs.length];
     return (
-      <Col xl={6} key={note.id} onClick={event => handleClick(event, note.id)}>
+      <Col xl={6} id={note.id} key={note.id} onClick={event => handleClick(event, note.id)}>
         <div className="rounded-3" style={{
           backgroundColor: selectedVariant,
           cursor: 'pointer',
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
         }}>
           <div className="d-flex justify-content-between">
-            <p id={note.id} className='pb-5 p-3 font-main text-white note-title'>{note.title || 'Untitled'}</p>
+            <p className='pb-5 p-3 font-main text-white note-title'>{note.title || 'Untitled'}</p>
 
             <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='trash-alt' color="red" size="1.5rem"></box-icon></span>
 

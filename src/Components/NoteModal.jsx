@@ -22,14 +22,20 @@ export default function NoteModal({ show, handleClose, onSubmit, ...otherProps }
         onSubmit,
     });
  
-    const [editForm, setEditForm] = useState({
-        note: otherProps.vals.note,
-        title: otherProps.vals.title,
-        dateTime: otherProps.vals.dateTime,
-        id: otherProps.vals.id
-    })
+    const [editData, setEditData] = useState(otherProps.vals)
+    // console.log(editData)
+
+    const handleEdit = ({target, value}) => {
+        setEditData(prev => {
+            return {
+                ...prev,
+                [target.name]: value
+            }
+        })
+    }
+    
  
-    const[noteT, setNoteT] = useState(otherProps.vals.title)
+    // const[noteT, setNoteT] = useState(otherProps.vals.title)
 
     // console.log(otherProps.vals)
     // console.log(editForm)
@@ -38,16 +44,16 @@ export default function NoteModal({ show, handleClose, onSubmit, ...otherProps }
         <>
             <Modal show={show} onHide={handleClose}> 
                     <Modal.Body>
-                      {  otherProps.id === 'noteTitle' ? <Form onSubmit={handleSubmit}>
-                            <Row>
+                      {  otherProps.id === otherProps.vals.id ? <Form>
+                            <Row> 
                                 <Col xl={12} className="mt-3">
-                                    <small className='font-main text-muted text-lowercase'>{editForm.dateTime}</small>
+                                    <small className='font-main text-muted text-lowercase'>{otherProps.vals.dateTime}</small>
                                 </Col>
                                 <Col xl={12} className="mt-3 rounded-pill" style={{ backgroundColor: "#261f47" }}>
-                                    <Form className='border-0 w-100 p-2 text-white' as="input" name="title" onChange={handleChange} value={editForm.title} placeholder="Note title" />
+                                    <Form className='border-0 w-100 p-2 text-white' as="input" name="title" onChange={handleEdit} value={editData.title} placeholder="Note title" />
                                 </Col>
                                 <Col xl={12} className="mt-3">
-                                    <Form className='border-0 w-100 p-2' as="textarea" rows={10} name="note" placeholder='Note down something'  onChange={handleChange} value={editForm.note} />
+                                    <Form className='border-0 w-100 p-2' as="textarea" rows={10} name="note" placeholder='Note down something'  onChange={handleEdit} value={editData.note} />
                                 </Col>
                                 {
                                     values.note && <Col xl={12} className="mt-4 d-flex align-items-end justify-content-end p-3">
@@ -55,8 +61,7 @@ export default function NoteModal({ show, handleClose, onSubmit, ...otherProps }
                                             <box-icon name='check' size="2rem" color="white" ></box-icon>
                                         </Button>
                                     </Col>
-                                }
-
+                                } 
                             </Row>
                         </Form> :
                         <Form onSubmit={handleSubmit}>
