@@ -13,10 +13,11 @@ export default function EditNoteModal({ showEditModal, closeEditModal, ...otherP
     const dateTime = date + ' | ' + time;
 
    
-    const [editData, setEditData] = useState({
-        title: otherProps.vals.title
-    })
-    console.log(editData.title)
+    const editData  = {
+        title: otherProps.vals.title,
+        note: otherProps.vals.note
+    }
+    console.log(otherProps.vals.title)
 
     const handleEdit = ({ target, value }) => {
         // setEditData(prev => {
@@ -42,7 +43,7 @@ export default function EditNoteModal({ showEditModal, closeEditModal, ...otherP
                                 <Form className='border-0 w-100 p-2 text-white' as="input" name="title" onChange={handleEdit} value={editData.title} placeholder="Note title" />
                             </Col>
                             <Col xl={12} className="mt-3">
-                                <Form className='border-0 w-100 p-2' as="textarea" rows={10} name="note" placeholder='Note down something' onChange={handleEdit} value={editData.note} />
+                                <Form className='border-0 w-100 p-2' as="textarea" rows={15} name="note" placeholder='Note down something' onChange={handleEdit} value={editData.note} />
                             </Col>
                             <Col xl={12} className="mt-4 d-flex align-items-end justify-content-end p-3">
                                 <Button type="submit" className='me-3 rounded-circle d-flex align-items-center py-2 px-2' style={{ backgroundColor: "#261f47" }}>

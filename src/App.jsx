@@ -68,8 +68,8 @@ function App() {
 
       const found = notes.find(el => {
         return el.id === key
-      }); 
-
+      });  
+      
       setNoteVals(found)
     }
   };
