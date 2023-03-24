@@ -43,6 +43,7 @@ function App() {
 
   const [noteVals, setNoteVals] = useState({});
   const [elementKey, setElementKey] = useState(null);
+  const [foundEl, setFoundEl] = useState({})
 
   const [inputVal, setInputVal] = useState('');
   const filterNote = notes.filter((el) => {
@@ -77,7 +78,7 @@ function App() {
         return el.id === key
       });
 
-      setNoteVals(found)
+      setFoundEl(found)
     }
   };
 
@@ -107,7 +108,7 @@ function App() {
     <div className="App">
       <NoteModal show={show} handleClose={handleClose} today={today} onSubmit={onSubmit} />
       <ConfirmDeleteModal showModal={showDelModal} handleClose={toggleClose} handleDelete={handleDelete} elKey={elementKey} />
-      <EditNoteModal vals={noteVals} today={today} showEditModal={showEditModal} closeEditModal={handleEditClose} />
+      <EditNoteModal oldNote={noteVals} setOldNote={setNoteVals} exactEl={foundEl} today={today} showEditModal={showEditModal} closeEditModal={handleEditClose} />
       <Container className='notes-container p-xl-5'>
         {notes.length > 0 &&
           <div className='d-flex align-items-center justify-content-between'>

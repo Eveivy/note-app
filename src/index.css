@@ -54,6 +54,10 @@ input, textarea{
   background-color: transparent;
   /* color: white; */
 }
+.rm-default{
+  resize: none;
+  overflow:hidden;
+}
 .note-title:hover{
   color: burlywood !important;
   font-size: 1.1rem;
