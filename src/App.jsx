@@ -15,6 +15,7 @@ function App() {
   const [show, setShow] = useState(false);
   const [showDelModal, setShowDelModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  // const [randColor, setRandColor] = useState('#6529a2');
 
   const [notes, setNotes] = useState(localStorage.getItem('notes') == null ? [] : JSON.parse(localStorage.getItem('notes')));
   const today = new Date();
@@ -22,7 +23,7 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const toggleClose = () => setShowDelModal(false); 
+  const toggleClose = () => setShowDelModal(false);
 
   const handleEditShow = () => setShowEditModal(true);
   const handleEditClose = () => setShowEditModal(false);
@@ -39,9 +40,15 @@ function App() {
       return [...prevNotes, values]
     })
   }
- 
+
   const [noteVals, setNoteVals] = useState({});
-  const [elementKey, setElementKey] = useState(null)
+  const [elementKey, setElementKey] = useState(null);
+
+  const [inputVal, setInputVal] = useState('');
+  const filterNote = notes.filter((el) => {
+    return el.title.toLocaleLowerCase().includes(inputVal)
+  }
+  );
 
 
   useEffect(() => {
@@ -55,7 +62,7 @@ function App() {
     setShowDelModal(false)
   }
 
-  const handleClick = (ev, key) => { 
+  const handleClick = (ev, key) => {
     if (ev.target.id === "delete") {
 
       setElementKey(key);
@@ -64,18 +71,18 @@ function App() {
 
     } else {
 
-      setShowEditModal(true); 
+      setShowEditModal(true);
 
       const found = notes.find(el => {
         return el.id === key
-      });  
-      
+      });
+
       setNoteVals(found)
     }
   };
 
-  const noteGrids = notes.map((note, idx) => {
-    const bgs = ['#2230c5', '#8a2584', '#14857c', '#d1b910', '#962374', '#b51f5d', '#6529a2', '#322eb9', '#26da0e', '#123569']
+  const noteGrids = filterNote.map((note, idx) => {
+    const bgs = ['#d1b910', '#962374', '#b51f5d', '#2230c5', '#8a2584', '#14857c', '#6529a2', '#322eb9', '#26da0e', '#123569'];
     const selectedVariant = bgs[idx % bgs.length];
     return (
       <Col xl={6} id={note.id} key={note.id} onClick={event => handleClick(event, note.id)}>
@@ -85,7 +92,7 @@ function App() {
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
         }}>
           <div className="d-flex justify-content-between">
-            <p className='pb-5 p-3 font-main text-white note-title'>{note.title || 'Untitled'}</p>
+            <p className='pb-5 p-3 font-main text-white note-title text-capitalize'>{note.title || 'Untitled'}</p>
 
             <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='trash-alt' color="red" size="1.5rem"></box-icon></span>
 
@@ -106,7 +113,7 @@ function App() {
           <div className='d-flex align-items-center justify-content-between'>
             <div className='d-flex align-items-center search-input-div'>
               <box-icon color="white" size="20px" name='search-alt-2'></box-icon>
-              <Form as='input' className="text-white" name='search' id='search' placeholder='Search note' />
+              <Form onChange={(event) => setInputVal(event.target.value)} as='input' className="text-white" name='search' id='search' placeholder='Search note' />
             </div>
             <div className="d-flex align-items-center justify-content-center">
               <span id='addNoteIcon' title='add new note' onClick={handleShow} className='d-flex align-items-center rounded-3' style={{ backgroundColor: "red", cursor: 'pointer' }}>
@@ -122,7 +129,15 @@ function App() {
                 <p>You have not added any note yet</p>
                 <Button id='addNoteBtn' variant='danger' onClick={handleShow}>Add now</Button>
               </div>
-            </Col> : noteGrids
+            </Col> : (
+              filterNote.length ? (
+                noteGrids
+              ) : (
+                <p className='w-100' style={{fontSize: '17px', textAlign: 'center' }} >
+                  No result found for the searched keyword
+                </p>
+              ) 
+            )
           }
 
         </Row>

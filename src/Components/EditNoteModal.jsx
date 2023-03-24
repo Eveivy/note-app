@@ -17,7 +17,7 @@ export default function EditNoteModal({ showEditModal, closeEditModal, ...otherP
         title: otherProps.vals.title,
         note: otherProps.vals.note
     }
-    console.log(otherProps.vals.title)
+    // console.log(otherProps.vals.title)
 
     const handleEdit = ({ target, value }) => {
         // setEditData(prev => {
