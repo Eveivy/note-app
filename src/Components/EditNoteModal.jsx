@@ -8,12 +8,16 @@ import Col from 'react-bootstrap/Col';
 import 'boxicons'
 
 export default function EditNoteModal({ showEditModal, closeEditModal, ...others }) {
-    console.log(others)
+   
     const date = others.today.getFullYear() + '-' + (others.today.getMonth() + 1) + '-' + others.today.getDate();
     const time = others.today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     const dateTime = date + ' | ' + time;
 
     const [visibility, setVisibility] = useState(true)
+
+    others.setOldNote(others.exactEl)
+
+    console.log(others.oldNote)
 
     // let editData = others.vals
     //  console.log(editData)

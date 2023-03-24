@@ -95,7 +95,7 @@ function App() {
           <div className="d-flex justify-content-between">
             <p className='pb-5 p-3 font-main text-white note-title text-capitalize'>{note.title || 'Untitled'}</p>
 
-            <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='trash-alt' color="red" size="1.5rem"></box-icon></span>
+            <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='trash-alt' color="black" size="1.5rem"></box-icon></span>
 
           </div>
           <p className='text-muted p-3 text-end' style={{ fontSize: '12px' }}>{note.dateTime}</p>
