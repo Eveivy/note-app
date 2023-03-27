@@ -83,7 +83,8 @@ function App() {
   };
 
   const noteGrids = filterNote.map((note, idx) => {
-    const bgs = ['#d1b910', '#962374', '#b51f5d', '#2230c5', '#8a2584', '#14857c', '#6529a2', '#322eb9', '#26da0e', '#123569'];
+    const bgs = ['#f2cdff', '#ffe6e6',,'#4c157d', '#c9f7f5', '#c9f788', '#f79eb4', '#f7c1f0', '#c7c8f4', '#5548e0', '#09908c']
+    //  ['#d1b910', '#962374', '#b51f5d', '#2230c5', '#8a2584', '#14857c', '#6529a2', '#322eb9', '#26da0e', '#123569'];
     const selectedVariant = bgs[idx % bgs.length];
     return (
       <Col xl={6} id={note.id} key={note.id} onClick={event => handleClick(event, note.id)}>
@@ -93,7 +94,7 @@ function App() {
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
         }}>
           <div className="d-flex justify-content-between">
-            <p className='pb-5 p-3 font-main text-white note-title text-capitalize'>{note.title || 'Untitled'}</p>
+            <p className='pb-5 p-3 font-main note-title text-capitalize'>{note.title || 'Untitled'}</p>
 
             <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='trash-alt' color="black" size="1.5rem"></box-icon></span>
 
