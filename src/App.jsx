@@ -25,7 +25,7 @@ function App() {
 
   const toggleClose = () => setShowDelModal(false);
 
-  const handleEditShow = () => setShowEditModal(true);
+  // const handleEditShow = () => setShowEditModal(true);
   const handleEditClose = () => setShowEditModal(false);
 
   const date = `${today.getFullYear()}-${(today.getMonth() + 1)}-${today.getDate()}`;
@@ -83,8 +83,7 @@ function App() {
   };
 
   const noteGrids = filterNote.map((note, idx) => {
-    const bgs = ['#f2cdff', '#ffe6e6',,'#4c157d', '#c9f7f5', '#c9f788', '#f79eb4', '#f7c1f0', '#c7c8f4', '#5548e0', '#09908c']
-    //  ['#d1b910', '#962374', '#b51f5d', '#2230c5', '#8a2584', '#14857c', '#6529a2', '#322eb9', '#26da0e', '#123569'];
+    const bgs = ['#f2cdff', '#ffe6e6',,'#4c157d', '#c9f7f5', '#c9f788', '#f79eb4', '#f7c1f0', '#c7c8f4', '#5548e0', '#09908c'] 
     const selectedVariant = bgs[idx % bgs.length];
     return (
       <Col xl={6} id={note.id} key={note.id} onClick={event => handleClick(event, note.id)}>
