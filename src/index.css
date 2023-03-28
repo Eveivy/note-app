@@ -48,6 +48,25 @@ body {
   width: 45%;
   background-color: #514983;
 }
+
+/* .hover-container{
+  perspective: 2000px; 
+}
+.hover-container:hover > .flip-container{
+  transform: rotateY(180deg);
+}
+.flip-container{
+  transition: transform 1500ms;
+  transform-style: preserve-3d;
+}
+.back{
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+.front{
+  backface-visibility: hidden;
+} */
+
 input, textarea{
   outline: none;
   border: none;

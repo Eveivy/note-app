@@ -17,7 +17,8 @@ export default function NoteModal({ show, handleClose, onSubmit, ...otherProps }
             note: '',
             title: '',
             id: 0,
-            dateTime: ''
+            time: '',
+            date: ''
         },
         onSubmit,
     });
@@ -37,7 +38,7 @@ export default function NoteModal({ show, handleClose, onSubmit, ...otherProps }
                                     onBlur={handleBlur} onChange={handleChange} value={values.title} placeholder="Note title" />
                             </Col>
                             <Col xl={12} className="mt-3">
-                                <Form className='border-0 w-100 p-2' as="textarea" rows={10} name="note" placeholder='Note down something'
+                                <Form className='border-0 w-100 p-2 rm-default' as="textarea" rows={10} name="note" placeholder='Note down something'
                                     onBlur={handleBlur} onChange={handleChange} value={values.note} />
                             </Col>
                             {
