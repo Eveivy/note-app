@@ -39,7 +39,7 @@ export default function EditNoteModal({ showEditModal, closeEditModal, ...others
         <>
             <Modal show={showEditModal} onHide={closeEditModal}>
                 <Modal.Body>
-                    <Form>
+                    <Form className='mb-5 pb-5'>
                         <Row>
                             <Col xl={12} className="mt-3">
                                 <small className='font-main text-muted text-lowercase'>{`${others.oldNote.time} | ${others.oldNote.date}`}</small>
