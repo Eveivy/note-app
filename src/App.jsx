@@ -9,6 +9,7 @@ import NoteModal from './Components/NoteModal';
 import ConfirmDeleteModal from './Components/ConfirmDeleteModal';
 import EditNoteModal from './Components/EditNoteModal';
 import 'boxicons'
+import { useFormik } from 'formik';
 import { Modal } from 'bootstrap';
 
 function App() {
@@ -84,7 +85,7 @@ function App() {
   };
 
   const noteGrids = filterNote.map((note, idx) => {
-    const bgs = ['#f2cdff', '#ffe6e6','#c9f788','#c9f7f5','#f79eb4', '#f7c1f0', '#c7c8f4', '#5548e0']
+    const bgs = ['#f2cdff', '#ffe6e6', '#c9f788', '#c9f7f5', '#f79eb4', '#f7c1f0', '#c7c8f4', '#5548e0']
     //  ['#d1b910', '#962374', '#b51f5d', '#2230c5', '#8a2584', '#14857c', '#6529a2', '#322eb9', '#26da0e', '#123569'];
     const selectedVariant = bgs[idx % bgs.length];
     return (
@@ -98,13 +99,13 @@ function App() {
             <p className='pb-5 p-3 font-main text-dark text-capitalize'>{note.title || 'Untitled'}</p>
 
             <span className='p-3' style={{ cursor: 'pointer' }}><box-icon id='delete' title="delete note" name='x' color="red" size="1.5rem"></box-icon></span>
-            
+
           </div>
           <div className="d-flex justify-content-between">
             <p className='text-muted px-3 text-end' style={{ fontSize: '12px' }}>{note.time}</p>
             <p className='text-muted px-3 text-end' style={{ fontSize: '12px' }}>{note.date}</p>
           </div>
-         </div>
+        </div>
       </Col>
     )
   })
@@ -139,10 +140,10 @@ function App() {
               filterNote.length ? (
                 noteGrids
               ) : (
-                <p className='w-100' style={{fontSize: '17px', textAlign: 'center' }} >
+                <p className='w-100' style={{ fontSize: '17px', textAlign: 'center' }} >
                   No result found for the searched keyword
                 </p>
-              ) 
+              )
             )
           }
 
